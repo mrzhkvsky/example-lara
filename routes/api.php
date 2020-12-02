@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\BidController;
+use App\Http\Controllers\StatsController;
+use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/user', function (Request $request) {
+    return User::all();
 });
+
+Route::post('/user', [UserController::class, 'create']);
+Route::post('/bid', [BidController::class, 'create']);
+Route::get('/stats/user/{id}/bid', [StatsController::class, 'getBidsStats']);
